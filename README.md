@@ -32,6 +32,9 @@ ER diagram
 
 ![ECommerce](https://github.com/user-attachments/assets/daa5afdf-90bc-4802-953f-022ff45ffa65)
 
+Create Schema(database) in MySQL
+
+
 
 
 
