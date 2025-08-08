@@ -34,6 +34,139 @@ ER diagram
 
 Create Schema(database) in MySQL
 
+create schema e_commerce;
+
+Create Tables
+
+Customer Table
+
+create table e_commerce.customer (
+     customer_id int primary key,
+     FirstName varchar(50),
+     MiddleName varchar(50),
+     LastName varchar(50),
+     Email varchar(100),
+     DateOfBirth date,
+     phone INT(10),
+     age int null
+   );
+
+   Category Table
+
+   create table e_commerce.category (
+    category_id int primary key,
+    category_name varchar(255),
+    Description varchar(255)
+);
+
+Seller Table
+
+create table e_commerce.seller (
+    seller_id int primary key,
+    seller_name varchar(255),
+    seller_phone int(15),
+    total_sales float
+);
+
+Address Table
+
+create table e_commerce.address(
+    address_id int primary key,
+    apart_no int(10),
+    apart_name varchar(255),
+    streetname varchar(255),
+    state varchar(255),
+    city varchar(255),
+    pincode int(6),
+    customer_id int ,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) on delete cascade on update no action
+);
+
+Product Table
+
+create table e_commerce.product (
+    product_id int primary key,
+    product_name varchar(50),
+    MRP float,
+    stock bool,
+    brand varchar(255),
+    category_id int,
+    seller_id int,
+    FOREIGN KEY (category_id) REFERENCES category(category_id) on delete set null on update no action,
+    FOREIGN KEY (seller_id) REFERENCES seller(seller_id) on delete set null on update no action
+);
+
+Cart Table
+
+create table e_commerce.cart (
+      cart_id int primary key,
+      grandtoatl float ,
+      itemtotal int,
+      customer_id int,
+      FOREIGN KEY (customer_id) REFERENCES customer(customer_id) on delete set null on update no action,
+      product_id int,
+      FOREIGN KEY (product_id) REFERENCES product(product_id) on delete set null on update no action
+  );
+
+  Review Table
+
+  create table e_commerce.review(
+    review_id int primary key,
+    description varchar(255),
+    rating enum('1','2','3','4','5'),
+    customer_id int,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) on delete set null on update no action,
+    product_id int,
+    FOREIGN KEY (product_id) REFERENCES product(product_id) on delete set null on update no action
+);
+
+Order Table
+
+create table e_commerce.order_table(
+      order_id int primary key,
+      order_date datetime,
+      order_amount float,
+      order_status enum('delivery','not delivery'),
+      shipping_date datetime,
+      customer_id int,
+      FOREIGN KEY (customer_id) REFERENCES customer(customer_id) on delete set null on update no action,
+      cart_id int,
+      FOREIGN KEY (cart_id) REFERENCES cart(cart_id) on delete set null on update no action
+  );
+
+  OrderItem Table
+
+  create table e_commerce.orderitem(
+      order_id int,
+      product_id int,
+      foreign key (order_id) references order_table(order_id) on delete set null on update no action,
+      foreign key (product_id) references product(product_id) on delete set null on update no action,
+      MRP float,
+      quantity int
+  );
+
+  Payment Table
+
+  create table e_commerce.payment(
+    paymentMode enum('online','offline'),
+    dateofpayment datetime,
+    order_id int,
+    foreign key (order_id) references order_table(order_id) on delete set null on update no action,
+    customer_id int,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) on delete set null on update no action
+);	
+
+Insert the data
+
+    insert into e_commerce.customer values (1,'vivek','umesh','wadher','wadhervivek6904@gmail.com','2004-09-06',2147483647,0);
+    insert into e_commerce.customer values (2,'devansh','hitesh','makawana','devansh@gmail.com','2004-05-23',2147483647,0);
+    insert into e_commerce.customer values (3,'jay','amit','chauhan','jay@gmail.com','2004-05-02',2147483647,0);
+
+    
+
+
+
+
 
 
 
